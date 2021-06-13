@@ -16,7 +16,7 @@ const (
 
 func main() {
 
-	dots := templates.Dots{}
+	dots := templates.NewDots(48.0)
 	squaresSmall := templates.NewSquares("squares-small", 50.0, 4.0)
 	squaresLarge := templates.NewSquares("squares-large", 75.0, 4.0)
 
