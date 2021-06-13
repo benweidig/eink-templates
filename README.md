@@ -12,3 +12,9 @@ Implement the interface `templates.Template`, add it to the logic in `main.go`.
 ```golang
 go run main.go
 ```
+
+## License
+
+The code itself is CC0, see LICENSE.
+
+Fonts may be licensed differently, see fonts/LICENSE.md for their exact license.
