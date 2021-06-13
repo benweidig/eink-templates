@@ -45,7 +45,7 @@ func (d Daily) Draw(ctx *gg.Context) {
 	startY := (screenHeight - float64(yDotsTotal-1)*d.spacing) / 2.0
 
 	// horizontal Line for date / topic
-	ctx.DrawLine(startX, startY+1.5*d.spacing, startX+float64(xDotsTotal)*d.spacing, startY+1.5*d.spacing)
+	ctx.DrawLine(startX, startY+1.5*d.spacing, startX+float64(xDotsTotal-1)*d.spacing, startY+1.5*d.spacing)
 
 	d.drawTimebar(ctx, startX, startY+2.0*d.spacing, yDotsTotal-3)
 
@@ -114,21 +114,22 @@ func (d Daily) drawTimebar(ctx *gg.Context, originX float64, originY float64, ve
 
 	labelSpacing := (d.spacing * float64(verticalSpaces)) / float64(d.endHour-d.startHour)
 
-	midDotX := originX + 0.5*d.spacing
+	timebarCenterX := originX + 0.5*d.spacing
 	midDotY := originY + 0.5*labelSpacing
 
-	d.drawDot(ctx, midDotX, midDotY)
+	d.drawDot(ctx, timebarCenterX, midDotY)
 
 	for timelineY := 1; timelineY < d.endHour-d.startHour; timelineY++ {
+		labelY := originY + float64(timelineY)*labelSpacing
 		ctx.DrawStringAnchored(
 			fmt.Sprintf("%02d", d.startHour+timelineY),
-			(originX + 0.5*d.spacing),
-			originY+float64(timelineY)*labelSpacing,
+			timebarCenterX,
+			labelY,
 			0.5,
 			0.5)
 
-		midDotY := originY + (float64(timelineY)+0.5)*labelSpacing
-		d.drawDot(ctx, midDotX, midDotY)
+		midDotY := labelY + 0.5*labelSpacing
+		d.drawDot(ctx, timebarCenterX, midDotY)
 	}
 }
 
